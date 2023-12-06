@@ -152,7 +152,7 @@ $.get("./song-list.csv").then((rawText) => {
     });
     function copySong(songName) {
         copyTextToClipboard('点歌 ' + songName)
-        toast(`“${songName}”成功复制到剪贴板！`)
+        toast(`“${songName}”成功复制到剪贴板！`);
     }
 });
 function toast(content) {
