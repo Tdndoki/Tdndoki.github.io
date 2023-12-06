@@ -17,12 +17,25 @@ $.get("./song-list.csv").then((rawText) => {
         const singer = li[1].trim();
         const songStyle = li[2].trim();
         const songLang = li[3].trim();
-        const songComment = li[4].trim();
-        fullList.push([songName, singer, songStyle, songLang, songComment]);
+        let songComment = li[4].trim();
+        let isNew = '';
+        if (songComment.startsWith('new')) {
+            songComment = songComment.replace("new", "");
+            isNew = 'new';
+        }
+        fullList.push([songName, singer, songStyle, songLang, songComment, isNew]);
         songStyleSet[songStyle] = true;
         songLangSet[songLang] = true;
         sum++;
     });
+    // const fullMap={};
+    // fullList.forEach((li,i)=>{
+    //     if(fullMap[li[0]]){
+    //         console.log('repeat',i,fullMap[li[0]]);
+    //     }
+    //     fullMap[li[0]]=i;
+    // });
+    // console.log('fullMap',fullMap);
     shuffleArray(fullList);
     const upperCaseFullList = fullList.map((li) => {
         return li.map(a => a.toUpperCase());
@@ -60,7 +73,17 @@ $.get("./song-list.csv").then((rawText) => {
     const $tbody = $("#song-list");
 
     function renderList(list) {
-        $tbody.empty()
+        $tbody.empty();
+        const subList1 = [];
+        const subList2 = [];
+        list.forEach((li) => {
+            if (li[5]) {
+                subList1.push(li);//new
+            } else {
+                subList2.push(li);//new
+            }
+        });
+        const finalList = subList1.concat(subList2);
         if (!list.length) {
             $tbody.append($(`<tr>
             <td style="text-align: center;
@@ -70,10 +93,11 @@ $.get("./song-list.csv").then((rawText) => {
             </tr>`))
             return;
         }
-
-        list.forEach((li) => {
-            $tbody.append($(`<tr class="song"><td></td><td class="song-name">${li[0]}</td><td>${li[1]}</td><td>${li[2]}</td><td>${li[3]}</td><td>${li[4]}</td></tr>`))
+        console.log('finalList', finalList);
+        finalList.forEach((li) => {
+            $tbody.append($(`<tr class="song"><td>${li[5] ? '<span class="new-tag">NEW</span>' : ''}</td><td class="song-name">${li[0]}</td><td>${li[1]}</td><td>${li[2]}</td><td>${li[3]}</td><td>${li[4]}</td></tr>`))
         });
+        console.log('subList1', subList1);
     }
     renderList(fullList);
     // console.log('fullList',fullList);
