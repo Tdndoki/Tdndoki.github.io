@@ -210,3 +210,14 @@ function shuffleArray(array) {
         array[j] = temp;
     }
 }
+$("#self-intro-panel main").html($("#intro-right").html())
+$("#intro-entry").on('click', () => {
+    $("#self-intro-panel").show();
+    setTimeout(() => {
+        $("#self-intro-panel").addClass('active');
+    }, 150);
+
+});
+$("#close-intro-panel").on('click', () => {
+    $("#self-intro-panel").removeClass('active');
+});
