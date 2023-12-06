@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            padding-bottom: 50px;
         }
 
         #bg {
@@ -54,6 +55,7 @@
             top: 0;
             display: inline-block;
             text-align: center;
+            padding-left: 5px;
         }
 
         #go-live div {
@@ -73,6 +75,7 @@
 
         #intro-left {
             transition: transform 1s;
+            display: inline-block;
         }
 
         #intro-right {
@@ -103,17 +106,25 @@
 
         .search-tag {
             color: #6B240C;
-            padding: 10px 20px;
+            padding: 7px 20px;
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.8);
             display: inline-block;
             width: 150px;
-            height: 42.5px;
             box-sizing: border-box;
             vertical-align: top;
-            border-radius: 23px;
-            margin: 10px;
+            border-radius: 20px;
+            margin: 5px 10px;
             cursor: pointer;
+        }
+
+        .search-tag:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .search-tag.active {
+            background-color: #994D1C;
+            color: white;
         }
 
         #kind-select {
@@ -192,8 +203,43 @@
         #table-wrap {
             margin-top: 20px;
         }
+
+        #song-table {
+            width: 100%;
+            border-radius: 18px;
+            text-align: left;
+            border-spacing: 0px;
+        }
+
+        #song-table th {
+            width: 20%;
+
+            padding: 10px;
+            border-bottom: 1px solid rgb(222, 226, 230);
+        }
+
+        #song-table td {
+            padding: 10px 10px;
+            border-bottom: 1px solid rgb(222, 226, 230);
+        }
+
+        #song-table tr.song {
+            cursor: pointer;
+            cursor: copy;
+        }
+
+        #song-table tr.song:hover {
+            background-color: #F5CCA0;
+
+        }
+
+        #song-list tr:last-child td {
+            border-bottom: none;
+        }
     </style>
+    <link rel="stylesheet" type="text/css" href="./toast.min.css">
     <script src="./jquery-3.7.1.min.js"></script>
+    <script src="./toast.min.js"></script>
 </head>
 
 <body>
@@ -204,6 +250,7 @@
             $body.addClass('phone')
         } else {
             $body.addClass('pc')
+            window.isPC = true;
         }
     </script>
     <div id="bg"></div>
@@ -251,7 +298,7 @@
                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg> <!-- -->挑个想听的类别呗~</div>
                 <div id="search-tag-container">
-                    <div class="search-tag" data-tag="all">全部</div>
+                    <div class="search-tag active all" data-tag="">全部</div>
                 </div>
             </div>
 
@@ -271,12 +318,14 @@
             <div id="random-song">随便听听</div>
         </div>
         <div id="table-wrap">
-            <table style="background-color: rgba(255, 255, 255, 0.5);">
+            <table id="song-table" style="background-color: rgba(255, 255, 255, 0.5);">
                 <thead>
                     <tr>
+                        <th style="width:5%"></th>
                         <th>歌名</th>
                         <th>歌手</th>
-                        <th>曲风</th>
+                        <th style="max-width:60px;width:auto;">曲风</th>
+                        <th style="max-width:60px;width:auto;">语言</th>
                         <th>备注</th>
                     </tr>
                 </thead>
