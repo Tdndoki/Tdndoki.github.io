@@ -10,6 +10,7 @@
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
+            text-align: center;
         }
 
         #bg {
@@ -23,6 +24,7 @@
             background-position: center;
             opacity: 0.5;
             pointer-events: none;
+            z-index: -1;
         }
 
         body.pc #bg {
@@ -35,6 +37,17 @@
             background-image: url(./res/bg.jpg);
         }
 
+        #avatar {
+            display: inline-block;
+            padding: 50px;
+            width: 250px;
+            height: 250px;
+            box-sizing: border-box;
+            border: rgb(248, 203, 225) 3px solid;
+            background: white;
+            border-radius: 50%;
+        }
+
         #go-live {
             position: absolute;
             left: 0;
@@ -42,8 +55,142 @@
             display: inline-block;
             text-align: center;
         }
-        #go-live div{
-            color:black;
+
+        #go-live div {
+            color: black;
+        }
+
+        #self-intro {
+            width: 100%;
+            height: 414px;
+            position: relative;
+            display: inline-block;
+            margin: auto;
+
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        #intro-left {
+            transition: transform 1s;
+        }
+
+        #intro-right {
+            text-align: left;
+            color: #332d6a;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            border: rgb(248, 203, 225) 3px solid;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.7s;
+            width: 600px;
+            line-height: 1.55;
+        }
+
+        #self-intro:hover #intro-left {
+            transform: translateX(-300px);
+        }
+
+        #self-intro:hover #intro-right {
+            opacity: 1;
+        }
+
+        .search-tag {
+            color: #6B240C;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            width: 150px;
+            height: 42.5px;
+            box-sizing: border-box;
+            vertical-align: top;
+            border-radius: 23px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #kind-select {
+            margin: auto;
+        }
+
+        #search {
+            background-color: hsla(0, 0%, 100%, .5);
+            border: none;
+            border-radius: 16px;
+            cursor: text;
+            display: block;
+            width: 100%;
+            padding: 6px 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        #search-area {
+            width: 100%;
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            margin-top: 20px;
+        }
+
+        #search-area #search-wrap {
+            flex: 2;
+            position: relative;
+            display: inline-block;
+
+        }
+
+        #search-area #search {
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            ;
+        }
+
+        #search-area #search:focus {
+            outline: none;
+            background-color: white;
+        }
+
+        #search-clear {
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            /* bottom: 0; */
+            margin: auto;
+            transform: translateY(-50%);
+
+        }
+
+        #random-song {
+            flex: 1;
+            background-color: white;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            display: inline-block;
+            padding: 6px 20px;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-left: 20px;
+            text-align: center;
+        }
+
+        #table-wrap {
+            margin-top: 20px;
         }
     </style>
     <script src="./jquery-3.7.1.min.js"></script>
@@ -71,8 +218,74 @@
             <div>去直播间</div>
         </div>
     </a>
+    <main style="width: 1300px;text-align: center;margin:auto;">
+        <div id="self-intro">
+            <div id="intro-left">
+                <div id="avatar">
+                    <img src="./res/avatar.png" style="width:100%;height:100%;">
+                </div>
+                <div id="title" style="font-size:40px;color:#092635;margin-bottom: 20px;">
+                    <div>兔豆尼Doki</div>
+                    <div>和她会摆的<span id="song-count"></span>首歌</div>
+                </div>
+                <div id="tips-copy" style="font-size:16px;color:#777">轻点歌名可以复制哦</div>
+            </div>
+            <div id="intro-right">
+                ♥︎︎直播时间：早9:00-12:00 晚19:00-21:00<br />
+                ♥︎︎可以唱中日英韩粤的歌，学歌比较快，比较戳的歌可能听两遍就会了。<br />
+                ♥︎︎没学过唱歌，在攒学费中。<br />
+                ♥︎︎日语罗马音王者，在利用闲暇时间学习读写了。其他语种都认字。<br />
+                ♥︎︎不唱擦边曲目。<br />
+                ♥︎︎3个月舰长可指定学一首歌，每月提督可以指定投稿1分钟视频。<br />
+                ♥︎︎目前是全职歌势主播，很喜欢大家的米（嘻嘻），但也希望大家量力而行，自己的生活最要紧。<br />
+                ♥︎︎希望你每次来到这个直播间，都能感到安心和快乐。<br />
+                ♥︎︎很高兴认识你～<br />
+            </div>
 
-    <!-- <img src="./res/bg.jpg" alt=""> -->
+        </div>
+        <div id="kind-select">
+            <div style="background-color:rgba(255, 173, 132,0.5);border-radius: 15px;padding:10px;">
+                <div style="font-size: 20px;margin:15px;font-style: bold;;"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg> <!-- -->挑个想听的类别呗~</div>
+                <div id="search-tag-container">
+                    <div class="search-tag" data-tag="all">全部</div>
+                </div>
+            </div>
+
+        </div>
+        <div id="search-area">
+            <div id="search-wrap" style="">
+                <input type="text" placeholder="搜索" id="search">
+                <div id="search-clear" style="cursor:pointer;display:none;"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" style="display:block;" height="16" fill="currentColor" class="bi bi-x-lg"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                    </svg></div>
+            </div>
+
+
+            <div id="random-song">随便听听</div>
+        </div>
+        <div id="table-wrap">
+            <table style="background-color: rgba(255, 255, 255, 0.5);">
+                <thead>
+                    <tr>
+                        <th>歌名</th>
+                        <th>歌手</th>
+                        <th>曲风</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody id="song-list"></tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="./main.js"></script>
 </body>
 
 </html>
