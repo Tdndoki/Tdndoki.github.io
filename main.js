@@ -27,7 +27,7 @@ $.get("./song-list.csv").then((rawText) => {
     // const fullMap={};
     // fullList.forEach((li,i)=>{
     //     if(fullMap[li[0]]){
-    //         console.log('repeat',i,fullMap[li[0]]);
+    //         console.log('repeat',i+2,fullMap[li[0]]+2);
     //     }
     //     fullMap[li[0]]=i;
     // });
@@ -89,11 +89,11 @@ $.get("./song-list.csv").then((rawText) => {
             </tr>`))
             return;
         }
-        console.log('finalList', finalList);
+        // console.log('finalList', finalList);
         finalList.forEach((li) => {
             $tbody.append($(`<tr class="song"><td>${Boolean(li[5].trim()) ? '<span class="new-tag">NEW</span>' : ''}</td><td class="song-name">${li[0]}</td><td>${li[1]}</td><td>${li[2]}</td><td>${li[3]}</td><td>${li[4]}</td></tr>`))
         });
-        console.log('subList1', subList1);
+        // console.log('subList1', subList1);
     }
     renderList(fullList);
     // console.log('fullList',fullList);
