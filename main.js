@@ -18,11 +18,7 @@ $.get("./song-list.csv").then((rawText) => {
         const songStyle = li[2].trim();
         const songLang = li[3].trim();
         let songComment = li[4].trim();
-        let isNew = '';
-        if (songComment.startsWith('new')) {
-            songComment = songComment.replace("new", "");
-            isNew = 'new';
-        }
+        let isNew = li[5].trim();
         fullList.push([songName, singer, songStyle, songLang, songComment, isNew]);
         songStyleSet[songStyle] = true;
         songLangSet[songLang] = true;
@@ -95,7 +91,7 @@ $.get("./song-list.csv").then((rawText) => {
         }
         console.log('finalList', finalList);
         finalList.forEach((li) => {
-            $tbody.append($(`<tr class="song"><td>${li[5] ? '<span class="new-tag">NEW</span>' : ''}</td><td class="song-name">${li[0]}</td><td>${li[1]}</td><td>${li[2]}</td><td>${li[3]}</td><td>${li[4]}</td></tr>`))
+            $tbody.append($(`<tr class="song"><td>${Boolean(li[5].trim()) ? '<span class="new-tag">NEW</span>' : ''}</td><td class="song-name">${li[0]}</td><td>${li[1]}</td><td>${li[2]}</td><td>${li[3]}</td><td>${li[4]}</td></tr>`))
         });
         console.log('subList1', subList1);
     }
