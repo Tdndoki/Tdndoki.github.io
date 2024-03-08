@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>兔豆尼Doki的歌单</title>
+    <link rel="stylesheet" type="text/css" href="./toast.min.css">
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+
+
+        #bg {
+            text-align: center;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: -1;
+            width: 100vw;
+
+        }
+
+        body.phone #bg {
+            height: 150vh;
+            /* min-height: ; */
+        }
+
+        body.pc #bg {
+
+            background-position: center 25%;
+            /* background-image: url(./res/bg-hd.jpg); */
+            background-image: url(https://ooo.0x0.ooo/2024/03/08/OyjoKN.jpg); 
+            
+        }
+
+        body.phone #bg {
+            background-position: center center;
+            /* background-image: url(./res/bg.jpg); */
+            background-image: url(https://ooo.0x0.ooo/2024/03/08/OyjqSC.jpg); 
+        }
+
+        #avatar {
+            display: inline-block;
+            padding: 50px;
+            width: 250px;
+            height: 250px;
+            box-sizing: border-box;
+            border: rgb(248, 203, 225) 3px solid;
+            background: white;
+            border-radius: 50%;
+        }
+
+        #go-live {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: inline-block;
+            text-align: center;
+            padding-left: 5px;
+        }
+
+        body.phone #intro-entry {
+            display: inline-block !important;
+        }
+
+        #intro-entry {
+            color: black;
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: inline-block;
+            text-align: center;
+            padding: 5px 5px 0 0;
+            cursor: pointer;
+
+        }
+
+        #intro-entry img {
+            width: 42px;
+            display: block;
+            margin: auto;
+        }
+
+
+        #go-live div {
+            color: black;
+        }
+
+        #self-intro {
+            width: 100%;
+            height: 424px;
+            position: relative;
+            display: inline-block;
+            margin: auto;
+
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        #intro-left {
+            transition: transform 1s;
+            display: inline-block;
+        }
+
+        #intro-right {
+            text-align: left;
+            color: #332d6a;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            border: rgb(248, 203, 225) 3px solid;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.7s;
+            width: 600px;
+            line-height: 1.55;
+        }
+
+        body.pc #self-intro:hover #intro-left {
+            transform: translateX(-300px);
+        }
+
+        body.pc #self-intro:hover #intro-right {
+            opacity: 1;
+        }
+
+        body.phone #self-intro {
+            pointer-events: none;
+        }
+
+        .search-tag {
+            color: #6B240C;
+            padding: 7px 20px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            width: 150px;
+            box-sizing: border-box;
+            vertical-align: top;
+            border-radius: 20px;
+            margin: 5px 10px;
+            cursor: pointer;
+        }
+        /* .search-tag:focus,.search-tag:active,.search-tag:hover{
+            background-color: rgba(255, 255, 255, 0.8);
+        } */
+        body.phone .search-tag {
+            padding: 7px;
+            width: 80px;
+        }
+
+        .search-tag:hover {
+            color: #6B240C;
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        .search-tag.active {
+            background-color: #994D1C;
+            color: white;
+        }
+
+        #kind-select {
+            margin: auto;
+            padding: 10px;
+        }
+
+        #search {
+            background-color: hsla(0, 0%, 100%, .5);
+            border: none;
+            border-radius: 16px;
+            cursor: text;
+            display: block;
+            width: 100%;
+            padding: 6px 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        #search-area {
+            width: 100%;
+            text-align: left;
+            display: flex;
+            flex-direction: row;
+            margin-top: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #search-area #search-wrap {
+            flex: 2;
+            position: relative;
+            display: inline-block;
+
+        }
+
+        #search-area #search {
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            ;
+        }
+
+        #search-area #search:focus {
+            outline: none;
+            background-color: white;
+        }
+
+        #search-clear {
+            display: inline-block;
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            /* bottom: 0; */
+            margin: auto;
+            transform: translateY(-50%);
+
+        }
+
+        #random-song {
+            flex: 1;
+            background-color: white;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            display: inline-block;
+            padding: 6px 20px;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-left: 20px;
+            text-align: center;
+        }
+
+        #table-wrap {
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        #song-table {
+            width: 100%;
+            border-radius: 18px;
+            text-align: left;
+            border-spacing: 0px;
+        }
+
+        #song-table th {
+            width: 20%;
+
+            padding: 10px;
+            border-bottom: 1px solid rgb(222, 226, 230);
+        }
+
+        #song-table td {
+            padding: 10px 10px;
+            border-bottom: 1px solid rgb(222, 226, 230);
+        }
+
+        #song-table tr.song {
+            cursor: pointer;
+            cursor: copy;
+        }
+
+        #song-table tr.song:hover {
+            background-color: #F5CCA0;
+
+        }
+
+        #song-list tr:last-child td {
+            border-bottom: none;
+        }
+
+        .new-tag {
+            display: inline-block;
+            font-size: 10px;
+            color: red;
+            border: 2px solid red;
+            padding: 1px 3px;
+        }
+
+        #self-intro-panel {
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            bottom: 0;
+            background-color: white;
+            padding: 20px;
+            text-align: left;
+            opacity: 0;
+            transform: translateX(-50%);
+            transition: all 0.5s;
+            display: none;
+            pointer-events: none;
+        }
+
+        #self-intro-panel.active {
+            opacity: 1;
+            transform: translateX(0);
+            display: block;
+            pointer-events: all;
+        }
+
+        /* .toastify-top{
+            top:50px;
+        } */
+    </style>
+
+    <script src="./jquery-3.7.1.min.js"></script>
+    <script src="./toast.min.js"></script>
+</head>
+
+<body>
+
+    <script>
+        var $body = $(document.body);
+        if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+            $body.addClass('phone')
+            window.isPC = false;
+        } else {
+            $body.addClass('pc')
+            window.isPC = true;
+        }
+    </script>
+    <div id="bg"></div>
+    <a href="https://live.bilibili.com/31231390">
+        <div id="go-live">
+            <svg style="margin:9px 5px 0 5px;" width="40" height="40" viewBox="0 0 18 18"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M3.73252 2.67094C3.33229 2.28484 3.33229 1.64373 3.73252 1.25764C4.11291 0.890684 4.71552 0.890684 5.09591 1.25764L7.21723 3.30403C7.27749 3.36218 7.32869 3.4261 7.37081 3.49407H10.5789C10.6211 3.4261 10.6723 3.36218 10.7325 3.30403L12.8538 1.25764C13.2342 0.890684 13.8368 0.890684 14.2172 1.25764C14.6175 1.64373 14.6175 2.28484 14.2172 2.67094L13.364 3.49407H14C16.2091 3.49407 18 5.28493 18 7.49407V12.9996C18 15.2087 16.2091 16.9996 14 16.9996H4C1.79086 16.9996 0 15.2087 0 12.9996V7.49406C0 5.28492 1.79086 3.49407 4 3.49407H4.58579L3.73252 2.67094ZM4 5.42343C2.89543 5.42343 2 6.31886 2 7.42343V13.0702C2 14.1748 2.89543 15.0702 4 15.0702H14C15.1046 15.0702 16 14.1748 16 13.0702V7.42343C16 6.31886 15.1046 5.42343 14 5.42343H4ZM5 9.31747C5 8.76519 5.44772 8.31747 6 8.31747C6.55228 8.31747 7 8.76519 7 9.31747V10.2115C7 10.7638 6.55228 11.2115 6 11.2115C5.44772 11.2115 5 10.7638 5 10.2115V9.31747ZM12 8.31747C11.4477 8.31747 11 8.76519 11 9.31747V10.2115C11 10.7638 11.4477 11.2115 12 11.2115C12.5523 11.2115 13 10.7638 13 10.2115V9.31747C13 8.76519 12.5523 8.31747 12 8.31747Z"
+                    fill="rgb(0,161,214)"></path>
+            </svg>
+            <div>去直播间</div>
+        </div>
+    </a>
+    <div id="intro-entry" style="display: none">
+        <img src="./res/intro.png" alt="">
+        <div>自我介绍</div>
+    </div>
+    <div id="self-intro-panel">
+        <header style="font-size: 20px;margin-bottom:20px;">
+            兔豆尼Doki的自我介绍
+        </header>
+        <div id="close-intro-panel" style="position: absolute;padding: 20px;top: 5px;right: 0;"><svg
+                xmlns="http://www.w3.org/2000/svg" width="16" style="display:block;" height="16" fill="currentColor"
+                class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path
+                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+            </svg></div>
+        <main style="line-height:1.8;color:#6B240C;"></main>
+    </div>
+    <main style="max-width: 1300px;text-align: center;margin:auto;">
+
+        <div id="self-intro">
+            <div id="intro-left">
+                <div id="avatar" class="flying">                    
+                    <img  src="./res/avatar.png" style="width:100%;height:100%;position:relative;">
+                </div>
+                <div id="title" style="font-size:40px;color:#a06b17;margin-bottom: 20px;">
+                    <div>兔豆尼Doki</div>
+                    <div>和她会摆的<span id="song-count"></span>首歌</div>
+                </div>
+                <div id="tips-copy" style="font-size:16px;color:#777">轻点歌名可以复制哦</div>
+            </div>
+            <div id="intro-right">
+                ♥︎︎直播时间：早9:00-12:00 晚19:00-21:00<br />
+                ♥︎︎可以唱中日英韩粤的歌，学歌比较快，比较戳的歌可能听两遍就会了。<br />
+                ♥︎︎没学过唱歌，在攒学费中。<br />
+                ♥︎︎日语罗马音王者，在利用闲暇时间学习读写了。其他语种都认字。<br />
+                ♥︎︎不唱擦边曲目。<br />
+                ♥︎︎月底舰长天选会抽奖学歌，还有学歌回当日上舰可指定学歌，每月提督可指定投稿视频。<br />
+                ♥︎︎目前是全职歌势主播，很喜欢大家的米（嘻嘻），但也希望大家量力而行，自己的生活最要紧。<br />
+                ♥︎︎希望你每次来到这个直播间，都能感到安心和快乐。<br />
+                ♥︎︎很高兴认识你～<br />
+            </div>
+
+        </div>
+        <div id="kind-select">
+            <div style="background-color:rgba(255, 173, 132,0.5);border-radius: 15px;padding:10px;">
+                <div style="font-size: 20px;margin:15px;font-style: bold;;"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg> <!-- -->挑个想听的类别呗~</div>
+                <div id="search-tag-container">
+                    <div class="search-tag active all" data-tag="">全部</div>
+                </div>
+            </div>
+
+        </div>
+        <div id="search-area">
+            <div id="search-wrap" style="">
+                <input type="text" placeholder="搜索" id="search">
+                <div id="search-clear" style="cursor:pointer;display:none;"><svg xmlns="http://www.w3.org/2000/svg"
+                        width="16" style="display:block;" height="16" fill="currentColor" class="bi bi-x-lg"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                    </svg></div>
+            </div>
+
+
+            <div id="random-song">随便听听</div>
+        </div>
+        <div id="table-wrap">
+            <table id="song-table" style="background-color: rgba(255, 255, 255, 0.5);">
+                <thead>
+                    <tr>
+                        <th style="width:5%"></th>
+                        <th style="min-width: 100px;">歌名</th>
+                        <th style="min-width: 100px;">歌手</th>
+                        <th style="max-width:60px;width:auto;min-width:35px;">曲风</th>
+                        <th style="max-width:60px;width:auto;min-width:35px;">语言</th>
+                        <th style="min-width: 100px;">备注</th>
+                    </tr>
+                </thead>
+                <tbody id="song-list"></tbody>
+            </table>
+        </div>
+    </main>
+    <script src="./main.js"></script>
+    <script src="./flying.min.js"></script>
+</body>
+
+</html>

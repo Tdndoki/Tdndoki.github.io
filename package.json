@@ -1,0 +1,15 @@
+{
+    "name": "tdndoki.github.io",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "build": "npx inliner --skip-absolute-urls -im index0.html > index.html",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "inliner": "^1.13.1"
+    }
+}
