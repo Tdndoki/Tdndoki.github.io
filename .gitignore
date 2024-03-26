@@ -1,3 +1,5 @@
 .DS_Store
 flying.js
 node_modules
+index-tpl.html
+index-tpl-single.html

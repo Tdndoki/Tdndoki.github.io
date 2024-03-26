@@ -4,12 +4,16 @@
     "description": "",
     "main": "main.js",
     "scripts": {
-        "build": "npx inliner --skip-absolute-urls -im index0.html > index.html",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build1": "npx inliner --skip-absolute-urls -im index-tpl.html > index.html",
+        "build2": "npx inliner -m index-tpl-single.html > index-single.html",
+        "build": "node build.js && npm run build1 && npm run build2"
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
         "inliner": "^1.13.1"
+    },
+    "dependencies": {
+        "fs-extra": "^11.2.0"
     }
 }
