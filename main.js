@@ -15,12 +15,15 @@ list.forEach((li, i) => {
         return;
     }
     const singer = li[1].trim();
-    const songStyle = li[2].trim();
+    const songStyles = li[2].trim().split(/[;；]/).map(a => a.trim())
+    const songStyle = li[2].trim().split(/[;；]/).map(a => a.trim()).join('；');
     const songLang = li[3].trim();
     let songComment = li[4].trim();
     let isNew = li[5].trim();
     fullList.push([songName, singer, songStyle, songLang, songComment, isNew]);
-    songStyleSet[songStyle] = true;
+    songStyles.forEach((style) => {
+        songStyleSet[style] = true;
+    });
     songLangSet[songLang] = true;
     sum++;
 });
@@ -135,7 +138,7 @@ function filterList() {
     }
     if (searchKind) {
         currentList = currentList.filter((li) => {
-            return li[2] === searchKind || li[3] === searchKind
+            return li[2].includes(searchKind) || li[3] === searchKind
         });
     }
     renderList(currentList);
