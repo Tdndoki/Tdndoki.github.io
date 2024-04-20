@@ -41,11 +41,18 @@ const upperCaseFullList = fullList.map((li) => {
 });
 // console.log('upperCaseFullList', upperCaseFullList);
 $("#song-count").text(sum)
-const tagList = Object.keys(songLangSet).concat(Object.keys(songStyleSet));
+let tagList = Object.keys(songLangSet).concat(Object.keys(songStyleSet));
+tagList.unshift('付费');
 const $tagContainer = $("#search-tag-container");
 $tagContainer.empty();
 tagList.forEach((li) => {
-    $tagContainer.append($(`<div class="search-tag" data-tag="${li}">${li}</div>`))
+    const $tag = $(`<div class="search-tag" data-tag="${li}">${li}</div>`)
+    if (li === '付费') {
+        const $icon = $("#sc-icon");
+        $icon.css('display', 'inline-block')
+        $tag.prepend($icon);
+    }
+    $tagContainer.append($tag);
 });
 // console.log(songStyleSet, songLangSet);
 const $search = $("#search");
@@ -55,7 +62,7 @@ let searchKeyword;
 let searchKind;
 function onKey() {
     const text = $search.val().trim().toUpperCase();
-    console.log('onKey', text);
+    // console.log('onKey', text);
     searchKeyword = text;
     if (text) {
         $clear.show();
@@ -136,11 +143,18 @@ function filterList() {
         });
         currentList = searchResultList.map(i => fullList[i])
     }
-    if (searchKind) {
+    if (searchKind === '付费') {
         currentList = currentList.filter((li) => {
-            return li[2].includes(searchKind) || li[3] === searchKind
+            return li[4].match(/\d+SC/i);
         });
+    } else {
+        if (searchKind) {
+            currentList = currentList.filter((li) => {
+                return li[2].includes(searchKind) || li[3] === searchKind
+            });
+        }
     }
+
     renderList(currentList);
 }
 $("body").on("click", ".song", function () {
