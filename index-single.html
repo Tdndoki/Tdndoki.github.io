@@ -754,7 +754,6 @@ const upperCaseFullList = fullList.map((li) => {
 $("#song-count").text(sum)
 let tagList = Object.keys(songLangSet).concat(Object.keys(songStyleSet));
 tagList.unshift('付费');
-console.log('tagList', tagList);
 const $tagContainer = $("#search-tag-container");
 $tagContainer.empty();
 tagList.forEach((li) => {
@@ -774,7 +773,7 @@ let searchKeyword;
 let searchKind;
 function onKey() {
     const text = $search.val().trim().toUpperCase();
-    console.log('onKey', text);
+    // console.log('onKey', text);
     searchKeyword = text;
     if (text) {
         $clear.show();
