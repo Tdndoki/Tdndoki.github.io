@@ -6,8 +6,9 @@ async function main() {
     const bulletin = (await fs.readFile("./bulletin.txt")).toString().replace(/\n/g,'<br\/>');
     const replaceList = [replaceSonglist, replaceBulletin];
     raw = replaceMultiple(raw, replaceList);
-    const indexTPL = raw.replace("./res/bg-hd.jpg", "https://ooo.0x0.ooo/2024/03/08/OyjoKN.jpg")
-        .replace("./res/bg.jpg", "https://ooo.0x0.ooo/2024/03/08/OyjqSC.jpg");
+    const indexTPL = raw;
+    // raw.replace("./res/bg-hd.jpg", "https://ooo.0x0.ooo/2024/03/08/OyjoKN.jpg")
+    //     .replace("./res/bg.jpg", "https://ooo.0x0.ooo/2024/03/08/OyjqSC.jpg");
     const indexTPLSingle = raw;
 
     await fs.writeFile("./index-tpl.html", indexTPL);
