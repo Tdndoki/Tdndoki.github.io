@@ -1,4 +1,10 @@
-.DS_Store
+\#build.js#
+\#package.json#
+.netrc
+nvm.sh
+id_ed25519
+id_ed25519.pub
+nvm.sh.DS_Store
 flying.js
 node_modules
 index-tpl.html
