@@ -165,7 +165,7 @@ $("#random-song").on('click', () => {
     copySong(fullList[Math.floor(Math.random() * fullList.length)][0]);
 });
 function copySong(songName) {
-    copyTextToClipboard('点歌 ' + songName)
+    copyTextToClipboard('小豆唱 ' + songName)
     toast(`“${songName}”成功复制到剪贴板！`);
 }
 
